@@ -1,7 +1,7 @@
 EVA
 ===
 
-Elements Visibly Appear script
+I decided to create the EVA script after seeing how elements would appear on http://www.kriesi.at/. I thought it was a cool idea and wanted to replicate it. I originally tried searching to see if there was an open source script already available. After failing to find any, I decided "eh, I'll just try making one."
 
 Instructions
 ============
