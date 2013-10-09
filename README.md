@@ -23,7 +23,7 @@ This is the element we will animate:
 </div>
 ```
 
-Initiate elements by doing the following:
+Initiate elements by doing the following prior to the closing body tag:
 
 ```html
 <script>
@@ -32,7 +32,7 @@ yo.init('yo','jump',2500);
 </script>
 ```
 
-You must fill in class name, animation option, and timing. Script needs to be before the closing body tag.
+You must fill in class name, animation option, and timing.
 
 Animation Options
 =================
