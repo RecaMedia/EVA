@@ -1,8 +1,10 @@
 var eva = function(){
-	this.init = function(ele,type,timing){
+	this.init = function(timing,delay){
 		var j = jQuery.noConflict();
-		var animationType = type;
+		
+		var animationType;
 		var animationTiming = timing;
+		var animationDelay = delay;
 		var objs = [];
 		var objsStart = [];
 		var xCor = [];
@@ -10,37 +12,43 @@ var eva = function(){
 		var width = [];
 		var height = [];
 		var count;
-		
 		var a = 0;
-		j('.'+ele).each(function(){
-			var WH_name = ele+''+a;
-			var position = j(this).position();
-			
-			objs.push(WH_name);
-			objsStart.push(true);
-			xCor.push(position.top);
-			yCor.push(position.left);
-			width.push(j(this).width());
-			height.push(j(this).height());
-			
-			j(this).addClass(WH_name);
-			j(this).css('display','none');
-			
-			a++;
-		});
+		var delay = 0;
 		
-		count = objs.length;
+		this.add = function(ele,type){
+			animationType = type;
+			j('.'+ele).each(function(){
+				var WH_name = ele+''+a;
+				var position = j(this).position();
+				
+				objs.push(WH_name);
+				objsStart.push(true);
+				xCor.push(position.top);
+				yCor.push(position.left);
+				width.push(j(this).width());
+				height.push(j(this).height());
+				
+				j(this).addClass(WH_name);
+				j(this).css('display','none');
+				
+				a++;
+			});
+			count = objs.length;
+			checkIfVisible();
+		}
+		
 		SP = Number(j(document).scrollTop())+Number(j(window).height());
 		
 		var checkIfVisible = function(){
-			console.log('check & count: '+count);
 			for(i=0;i<count;i++){
 				if(SP >= xCor[i] && objsStart[i]){
 					objsStart[i] = false;
-					animType(i);
-					console.log('call: '+i);
+					animType(i,delay);
+					console.log(objs[i]+'.'+delay);
+					delay += animationDelay;
 				}
 			}
+			setTimeout(function(){delay = 0},100);
 		}
 		
 		var anim_Fade = function(e){
@@ -110,24 +118,23 @@ var eva = function(){
 			},"easeOutCubic");
 		}
 		
-		var animType = function(e){
+		var animType = function(e,d){
 			switch(animationType){
 				case 'fade':
-					anim_Fade(e);
+					setTimeout(function(){anim_Fade(e)},d);
 				break;
 				case 'jump':
-					anim_Jump(e);
+					setTimeout(function(){anim_Jump(e)},d);
 				break;
 				case 'zoom':
-					anim_Zoom(e);
+					setTimeout(function(){anim_Zoom(e)},d);
 				break;
 				case 'zoomspin':
-					anim_ZoomSpin(e);
+					setTimeout(function(){anim_ZoomSpin(e)},d);
 				break;
 			}
 		}
 		
-		checkIfVisible();
 		j(window).scroll(function(){
 			SP = Number(j(document).scrollTop())+Number(j(window).height());
 			checkIfVisible();
