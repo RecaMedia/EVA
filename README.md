@@ -21,19 +21,35 @@ This is the element we will animate:
 <div class="box">
 	<div class="yo"></div>
 </div>
+
+<div class="box">
+	<div class="so" style="margin-left:25%;"></div>
+</div>
+
+<div class="box">
+	<div class="mo" style="margin-left:50%;"></div>
+</div>
 ```
 
-Initiate elements by doing the following prior to the closing body tag:
+**Initiate elements by doing the following prior to the closing body tag:**
 
 ```html
 <script>
 var yo = new eva();
-yo.init('yo','jump',2500);
+
+yo.init(1000,200);
+yo.add('yo','jump');
+yo.add('so','zoomspin');
+yo.add('mo','fade');
 </script>
 ```
 
-You must fill in class name, animation option, and timing.
-
+**You must fill in the following:**
+```javascript
+yo.init(/*Animation Length*/,/*Delay between Animations*/); //Do this once.
+yo.add(/*Element Class*/,/*Animation Option*/); //Add as many elements as you'd like.
+yo.add(...); //Etc.
+```
 Animation Options
 =================
 
