@@ -1,7 +1,5 @@
 var eva = function(){
-	this.init = function(timing,delay){
-		var j = jQuery.noConflict();
-		
+	this.init = function(timing,delay){	
 		var animationType;
 		var animationTiming = timing;
 		var animationDelay = delay;
@@ -17,19 +15,19 @@ var eva = function(){
 		
 		this.add = function(ele,type){
 			animationType = type;
-			j('.'+ele).each(function(){
+			$('.'+ele).each(function(){
 				var WH_name = ele+''+a;
-				var position = j(this).position();
+				var position = $(this).position();
 				
 				objs.push(WH_name);
 				objsStart.push(true);
 				xCor.push(position.top);
 				yCor.push(position.left);
-				width.push(j(this).width());
-				height.push(j(this).height());
+				width.push($(this).width());
+				height.push($(this).height());
 				
-				j(this).addClass(WH_name);
-				j(this).css('display','none');
+				$(this).addClass(WH_name);
+				$(this).css('opacity','0');
 				
 				a++;
 			});
@@ -37,7 +35,7 @@ var eva = function(){
 			checkIfVisible();
 		}
 		
-		SP = Number(j(document).scrollTop())+Number(j(window).height());
+		SP = Number($(document).scrollTop())+Number($(window).height());
 		
 		var checkIfVisible = function(){
 			for(i=0;i<count;i++){
@@ -52,16 +50,21 @@ var eva = function(){
 		}
 		
 		var anim_Fade = function(e){
-			j('.'+objs[e]).fadeIn(animationTiming);
+			$('.'+objs[e]).css({
+				opacity:'0'
+			}).show();
+			$('.'+objs[e]).animate({
+				opacity:'1'
+			},animationTiming,"easeOutBounce");
 		}
 		
 		var anim_Jump = function(e){
-			j('.'+objs[e]).css({
+			$('.'+objs[e]).css({
 				top:Number(height[e])+'px',
 				opacity:'0',
 				position:'relative'
 			}).show();
-			j('.'+objs[e]).animate({
+			$('.'+objs[e]).animate({
 				top:'0px',
 				opacity:'1',
 				position:''
@@ -69,7 +72,7 @@ var eva = function(){
 		}
 		
 		var anim_Zoom = function(e){
-			j('.'+objs[e]).css({
+			$('.'+objs[e]).css({
 				top:(Number(height[e])/2)+'px',
 				left:(Number(width[e])/2)+'px',
 				width:'1px',
@@ -78,7 +81,7 @@ var eva = function(){
 				position:'relative'
 			}).show();
 			
-			j('.'+objs[e]).animate({
+			$('.'+objs[e]).animate({
 				top:'0px',
 				left:'0px',
 				width:width[e]+'px',
@@ -89,7 +92,7 @@ var eva = function(){
 		}
 		
 		var anim_ZoomSpin = function(e){
-			j('.'+objs[e]).css({
+			$('.'+objs[e]).css({
 				top:(Number(height[e])/2)+'px',
 				left:(Number(width[e])/2)+'px',
 				width:'1px',
@@ -98,7 +101,7 @@ var eva = function(){
 				position:'relative'
 			}).show();
 			
-			j('.'+objs[e]).animate({
+			$('.'+objs[e]).animate({
 				top:'0px',
 				left:'0px',
 				width:width[e]+'px',
@@ -108,11 +111,11 @@ var eva = function(){
 				position:''
 			},{
 				step:function(now){
-					j(this).css('-webkit-transform','rotate('+now+'deg)');
-					j(this).css('-moz-transform','rotate('+now+'deg)'); 
-					j(this).css('-ms-transform','rotate('+now+'deg)');
-					j(this).css('-o-transform','rotate('+now+'deg)');
-					j(this).css('transform','rotate('+now+'deg)');  
+					$(this).css('-webkit-transform','rotate('+now+'deg)');
+					$(this).css('-moz-transform','rotate('+now+'deg)'); 
+					$(this).css('-ms-transform','rotate('+now+'deg)');
+					$(this).css('-o-transform','rotate('+now+'deg)');
+					$(this).css('transform','rotate('+now+'deg)');  
 				},
 				duration:animationTiming
 			},"easeOutCubic");
@@ -135,8 +138,8 @@ var eva = function(){
 			}
 		}
 		
-		j(window).scroll(function(){
-			SP = Number(j(document).scrollTop())+Number(j(window).height());
+		$(window).scroll(function(){
+			SP = Number($(document).scrollTop())+Number($(window).height());
 			checkIfVisible();
 		});
 	}
